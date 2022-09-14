@@ -1,4 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { partitionArray } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Gif, SearchGifsResponse } from '../interface/gifs.interface';
 
@@ -11,6 +12,8 @@ export class GifsService {
   private servicioUrl: string = 'https://api.giphy.com/v1/gifs';
   private _historial: string[] = [];
   public resultados: Gif[] = [];
+  public trending: Gif[] = [];
+  public flagTrending: boolean = true;
 
   constructor(private http: HttpClient) {
     this._historial = JSON.parse(localStorage.getItem('historial')!) || []
@@ -22,6 +25,8 @@ export class GifsService {
   }
 
   buscarGifs(query: string = '') {
+
+    this.flagTrending = false;
 
     query = query.trim().toLocaleLowerCase();
 
@@ -43,6 +48,21 @@ export class GifsService {
         this.resultados = resp.data
         localStorage.setItem('resultado', JSON.stringify(this.resultados));
 
+      })
+
+
+  }
+
+  buscarGifTrending() {
+    const params = new HttpParams()
+      .set('api_key', this.apiKey)
+      .set('limit', '25')
+      .set('rating', 'g');
+
+    this.http.get<SearchGifsResponse>(`${this.servicioUrl}/trending`, { params })
+      .subscribe((resp) => {
+        this.trending = resp.data
+        console.log(this.trending);
       })
   }
 }

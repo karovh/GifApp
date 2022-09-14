@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GifsService } from '../services/gifs.service';
 
 @Component({
   selector: 'app-gifs-page',
@@ -6,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 
 })
 export class GifsPageComponent {
+
+
+
+  constructor(private gifService: GifsService) {
+    this.gifService.buscarGifTrending()
+
+  }
+
+  get mostrar() {
+    return this.gifService.flagTrending
+  }
 
 
 

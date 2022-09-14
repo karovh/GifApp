@@ -1,6 +1,7 @@
-<div class="row">
+<h5>Lo mas Trending</h5>
 
-    <div *ngFor="let gif of resultados"
+<div class="row">
+    <div *ngFor="let gif of trending"
     class="col-md-4 col-sm-6 animate__animated animate__fadeIn" >
     
 
@@ -8,11 +9,9 @@
             <img [src]="gif.images.downsized_medium.url" 
             [alt]="gif.title"
             class="card-img-top"
-           >            
-            
+           >          
+                        
         </div>
 
     </div>
-
 </div>
-

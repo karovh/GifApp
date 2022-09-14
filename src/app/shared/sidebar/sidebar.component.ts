@@ -13,7 +13,9 @@ export class SidebarComponent {
 
     return this.gifService.historial
   }
-  constructor(private gifService: GifsService) { }
+  constructor(private gifService: GifsService) {
+    this.gifService.buscarGifTrending();
+  }
 
   buscar(item: string) {
 
